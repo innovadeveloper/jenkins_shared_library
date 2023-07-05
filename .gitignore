@@ -1,0 +1,22 @@
+# Directorios
+/target/
+/out/
+
+# Archivos de compilación
+build/
+*.class
+
+# Archivos de configuración de IDEs
+.idea/
+.gradle/
+.vscode/
+
+# Dependencias y bibliotecas descargadas
+.gradle/
+/.gradle/
+/.idea/
+
+# Archivos temporales
+*.iml
+*.ipr
+*.iws
