@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: ${YOUR_APP_NAME}-PV  # (important) este nombre del PV deberá de coincidir con el PVC más adelante
+spec:
+  capacity:
+    storage: ${STORAGE_SIZE_PV} # 1Gi  # size
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  hostPath:
+    # path: ./../assets/ # no recomendado utilizar paths relativos por la incompatibilidad con distintos tipos de cluster, además de q kubernetes no permite ".."
+    path: /opt/volumes/${YOUR_APP_NAME}/   # YOUR-PATH-PV  # ubicación en el nodo master del cluster

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ${YOUR_APP_NAME}-deployment
+spec:
+  replicas: ${YOUR_REPLICAS_APP}
+  selector:
+    matchLabels:
+      app: ${YOUR_APP_NAME}
+  template:
+    metadata:
+      labels:
+        app: ${YOUR_APP_NAME}
+    spec:
+      containers:
+        - name: ${YOUR_APP_NAME}-container
+          image: ${YOUR_IMAGE_PATH}
+          imagePullPolicy: IfNotPresent # Always solo para desarrollo lo mantenemos
+          ports:
+            ${PORT_DEFINITIONS}
+          volumeMounts:
+            ${VOLUME_MOUNTS}
+          env:
+            ${ENVIRONMENT_VARIABLES}
+      ${START_VOLUMES}volumes:
+        - name: ${YOUR_APP_NAME}-volume
+          persistentVolumeClaim:
+            claimName: ${YOUR_APP_NAME}-pvc${END_VOLUMES}${START_IMAGE_PULL_SECRET}
+      imagePullSecrets: # referencia los secretos que actuarán para conectarse a los registrys
+        - name: ${CLIENT_SECRET_ID}${END_IMAGE_PULL_SECRET}
