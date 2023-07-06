@@ -9,13 +9,13 @@ import org.apache.commons.lang3.StringUtils
 import java.nio.charset.StandardCharsets
 
 class WebJenkinFileUtils {
-//    def getContentFromPath
+    def getContentFromPath
 
-    static String getContentFromPath(String path) {
-        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
-        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
-        return scanner.hasNext() ? scanner.next() : "";
-    }
+//    static String getContentFromPath(String path) {
+//        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
+//        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
+//        return scanner.hasNext() ? scanner.next() : "";
+//    }
 
     static void main(String[] args) {
         def yamlContent = getContentFromPath("templates/vars/template.dev.yaml") // Reemplaza con la ruta de tu archivo YAML
