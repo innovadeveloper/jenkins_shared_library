@@ -1,32 +1,43 @@
 package com.shared.library.utils
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.shared.library.models.JenkinsProperty
+import com.shared.library.models.PomModel
 import groovy.io.FileType
 import org.apache.commons.lang3.StringUtils
 
 import java.nio.charset.StandardCharsets
 
 class WebJenkinFileUtils {
-    def getContentFromPath
+//    def getContentFromPath
 
-//    static String getContentFromPath(String path) {
-//        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
-//        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
-//        return scanner.hasNext() ? scanner.next() : "";
-//    }
+    String getContentFromPath(String path) {
+        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
+        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
+        return scanner.hasNext() ? scanner.next() : "";
+    }
 
     static void main(String[] args) {
-        def yamlContent = getContentFromPath("templates/vars/template.dev.yaml") // Reemplaza con la ruta de tu archivo YAML
+        def yamlContent = new WebJenkinFileUtils().getContentFromPath("templates/vars/template.dev.yaml") // Reemplaza con la ruta de tu archivo YAML
         def objectMapper = new ObjectMapper(new YAMLFactory())
         def jenkinsProperty = objectMapper.readValue(yamlContent, JenkinsProperty)
         def dataText = new WebJenkinFileUtils().generateKubernetesResources(jenkinsProperty, true)
         dataText.collect(){
-            def rootPath = "/Users/kennybaltazaralanoca/Projects/GroovyProjects/jenkins_shared_library/output/"
+            def rootPath = "./output/"
             def file = new File(rootPath + it.key)
             file.write(it.value)
         }
+        new WebJenkinFileUtils().readVersionFromPomFile('templates/vars/pom.xml')
+    }
+
+    def readVersionFromPomFile(String path){
+        // se considera un ficher
+        def pomContent = this.getContentFromPath(path)
+        XmlMapper xmlMapper = new XmlMapper();
+        PomModel pom = xmlMapper.readValue(pomContent, PomModel.class);
+        print(pom.getVersion() + " __")
     }
 
     def readByClosure2(def closure){
@@ -126,7 +137,6 @@ class WebJenkinFileUtils {
         }
         return ['deploymentDefinition.yaml' : deploymentDefinition, 'serviceDefinition.yaml' : serviceDefinition]
     }
-
 
 }
 
