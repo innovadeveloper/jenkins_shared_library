@@ -3,30 +3,27 @@ package com.shared.library.utils
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.shared.library.models.JenkinsProperty
+import groovy.io.FileType
 import org.apache.commons.lang3.StringUtils
 
-// import org.apache.commons.lang.StringUtils
-// import org.apache.commons.lang.StringUtils
-// import org.apache.commons.lang.StringUtils
-
-// import sharedlibrary.models.JenkinsProperty
+import java.nio.charset.StandardCharsets
 
 class WebJenkinFileUtils {
-    def getContentFromPath
+//    def getContentFromPath
 
-//    static String getContentFromPath(String path) {
-//        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
-//        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
-//        return scanner.hasNext() ? scanner.next() : "";
-//    }
+    static String getContentFromPath(String path) {
+        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
+        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
+        return scanner.hasNext() ? scanner.next() : "";
+    }
 
     static void main(String[] args) {
         def yamlContent = getContentFromPath("templates/vars/template.dev.yaml") // Reemplaza con la ruta de tu archivo YAML
         def objectMapper = new ObjectMapper(new YAMLFactory())
         def jenkinsProperty = objectMapper.readValue(yamlContent, JenkinsProperty)
-        def dataText = generateKubernetesResources(jenkinsProperty, true)
+        def dataText = new WebJenkinFileUtils().generateKubernetesResources(jenkinsProperty, true)
         dataText.collect(){
-            def rootPath = "/Users/kennybaltazaralanoca/Projects/GroovyProjects/JenkinsSharedLibrary/output/"
+            def rootPath = "/Users/kennybaltazaralanoca/Projects/GroovyProjects/jenkins_shared_library/output/"
             def file = new File(rootPath + it.key)
             file.write(it.value)
         }
@@ -104,6 +101,7 @@ class WebJenkinFileUtils {
 
         if(!isCredentialsIdDefined){
             deploymentDefinition = deploymentDefinition.replaceAll("(?s)\\Q$startImagePullSecretMarker\\E.*?\\Q$endImagePullSecretMarker\\E", "")
+                                    .replace('${YOUR_IMAGE_PATH}', registryImageWithVersion)
         }else{
             deploymentDefinition = deploymentDefinition
                     .replace(startImagePullSecretMarker, "")
@@ -111,6 +109,7 @@ class WebJenkinFileUtils {
                     .replace('${CLIENT_SECRET_ID}', jenkinsProperty.project.repository_info.registry_credentials_id)
                     .replace('${YOUR_IMAGE_PATH}', registryImageWithVersion)
         }
+
 
         def serviceDefinition = serviceTemplate
                 .replace('${YOUR_APP_NAME}', jenkinsProperty.project.project_info.app_name)

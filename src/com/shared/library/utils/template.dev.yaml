@@ -1,0 +1,45 @@
+#storage:  # no mandatorio
+#  volume_size: 3Gi
+#  mount_path:
+#    - "/opt/media/assets/"
+#    - "/opt/media/temp_files/"
+service:
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30000
+    - protocol: UDP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30001
+enviroment_variables:
+  - name: port
+    value: '8080'
+  - name: app_name
+    value: some example
+resources_plan:
+  max_memory_usage: 1.5G
+  min_memory_usage: 1G
+  min_cpu_usage: 0.5G
+  max_cpu_usage: 1.5G
+project:
+  configuration_tool:
+    build: maven
+    path: pom.xml # mandatorio para obtener la versión de la aplicación
+  project_info:
+    type: web
+    language: java
+    framework: springboot
+    app_version: 1.0.0
+    app_name: web-app-mock-api-server
+  credentials:
+    credentials_id: developer_pwd # mandatorio para el clone del repositorio si es q se usará la directiva "git", pero si se usa el "checkout scm" no es mandatorio
+  repository_info:
+    repository_server_type: private
+    environment_type: dev
+    registry_image: registry.gitlab.com/apiwebprojects/mock-server-project
+#    registry_credentials_id: dev-gitlab-registry-secret # no mandatorio, solo en caso de querer extraer de un registry privado
+replicas:
+  min: 1
+  max: 2
