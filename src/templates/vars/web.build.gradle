@@ -1,0 +1,29 @@
+plugins {
+    kotlin("jvm")
+}
+
+// jar data
+group = "com.abexa"
+version = "29.0"
+
+val mainClass = "com.abexa.apiwebpublisher.ApiwebPublisherApplication" // replace it!
+
+dependencies {
+    implementation(kotlin("stdlib-jdk8"))
+
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin")
+
+    implementation("org.springframework.boot", "spring-boot-starter-web")
+    implementation("org.springframework.boot", "spring-boot-starter-actuator")
+
+    implementation("org.springframework.boot", "spring-boot-devtools")
+
+    implementation ("io.springfox:springfox-swagger2:2.9.2")
+    implementation ("io.springfox:springfox-swagger-ui:2.9.2")
+    implementation(project(":rabbitmqlibrary"))
+    implementation(project(":common-queue-server"))
+    testImplementation("org.springframework.boot", "spring-boot-starter-test")
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("org.springframework:spring-tx:5.2.8.RELEASE")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+}

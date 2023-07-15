@@ -1,0 +1,87 @@
+
+plugins {
+    id 'com.android.application'
+    id 'maven-publish'
+}
+apply from: './signingConfigs.gradle'
+
+
+
+android {
+    namespace 'com.abexa.work'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.abexa.work"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.1"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+//    signingConfigs {
+//        release {
+//            storeFile file("/Users/kennybaltazaralanoca/Files/keystores/home")
+//            storePassword "developer"
+//            keyAlias "developer"
+//            keyPassword "developer"
+//        }
+//    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation files('libs/simplelibrary-debug.aar')
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.21'
+
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation 'com.abexa.libraries:simplelibrary:2.0.0@aar'
+}
+//
+//// Configuración de la publicación
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            groupId 'com.abexa.work'
+//            artifactId 'app'
+//            version '1.3.0'
+//
+//            artifact("$buildDir/outputs/apk/release/app-release.apk")
+//        }
+//    }
+//
+//    repositories {
+//        maven {
+////            url 'https://nexus.local:8441/repository/maven-releases/'
+//            url 'https://nexus.local:8441/repository/raw-repository/'
+//            credentials {
+//                username 'admin'
+//                password 'admin'
+//            }
+//        }
+//    }
+//}
+
+//tasks.named('publishMavenPublicationToMavenRepository') {
+//    dependsOn tasks.named('packageRelease')
+//}
+
+
+
+
