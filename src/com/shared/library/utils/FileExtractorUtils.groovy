@@ -23,7 +23,7 @@ class FileExtractorUtils {
 //        PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
 //        def versionName = pom.getElements().get("version").toString().replace("\"", "")
 //        return versionName
-        def pattern = /<version>(.*?)<\/version>/
+        def pattern = /<project[^>]*>.*?<version>(.*?)<\/version>.*?<\/project>/s
         def matcher = (pomContent =~ pattern)
         if (matcher.find())
             return matcher.group(1)
