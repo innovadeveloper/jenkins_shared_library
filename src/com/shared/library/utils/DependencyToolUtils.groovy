@@ -8,29 +8,29 @@ import com.shared.library.models.PomModel
 import org.apache.commons.lang3.StringUtils
 
 class DependencyToolUtils {
-//    def getContentFromPath
-
-    String getContentFromPath(String path) {
-        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
-        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
-        return scanner.hasNext() ? scanner.next() : "";
-    }
+    def getContentFromPath
+//
+//    String getContentFromPath(String path) {
+//        def resource = WebJenkinFileUtils.class.getClassLoader().getResourceAsStream(path) // Reemplaza con la ruta de tu archivo YAML
+//        Scanner scanner = new Scanner(resource, "UTF-8").useDelimiter("\\A");
+//        return scanner.hasNext() ? scanner.next() : "";
+//    }
 
     static void main(String[] args) {
-//        def yamlContent = new WebJenkinFileUtils().getContentFromPath("templates/vars/template.dev.yaml") // Reemplaza con la ruta de tu archivo YAML
-//        def objectMapper = new ObjectMapper(new YAMLFactory())
-//        def jenkinsProperty = objectMapper.readValue(yamlContent, JenkinsProperty)
-//        def dataText = new WebJenkinFileUtils().generateKubernetesResources(jenkinsProperty, true)
-//        dataText.collect(){
-//            def rootPath = "./output/"
-//            def file = new File(rootPath + it.key)
-//            file.write(it.value)
-//        }
+        def yamlContent = new WebJenkinFileUtils().getContentFromPath("templates/vars/template.dev.yaml") // Reemplaza con la ruta de tu archivo YAML
+        def objectMapper = new ObjectMapper(new YAMLFactory())
+        def jenkinsProperty = objectMapper.readValue(yamlContent, JenkinsProperty)
+        def dataText = new WebJenkinFileUtils().generateKubernetesResources(jenkinsProperty, true)
+        dataText.collect(){
+            def rootPath = "./output/"
+            def file = new File(rootPath + it.key)
+            file.write(it.value)
+        }
         // read version from configuration files... (maven, gradle, package.json)
-        new WebJenkinFileUtils().readVersionFromPomFile('templates/vars/pom.xml')
-        new WebJenkinFileUtils().readVersionFromPackageJsonFile('templates/vars/package.json')
-        new WebJenkinFileUtils().readVersionFromAndroidBuildGradleFile('templates/vars/build.gradle')
-        new WebJenkinFileUtils().readVersionFromWebSpringbootBuildGradleFile('templates/vars/web.build.gradle')
+//        new WebJenkinFileUtils().readVersionFromPomFile('templates/vars/pom.xml')
+//        new WebJenkinFileUtils().readVersionFromPackageJsonFile('templates/vars/package.json')
+//        new WebJenkinFileUtils().readVersionFromAndroidBuildGradleFile('templates/vars/build.gradle')
+//        new WebJenkinFileUtils().readVersionFromWebSpringbootBuildGradleFile('templates/vars/web.build.gradle')
     }
 
     /**
