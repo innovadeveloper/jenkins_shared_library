@@ -27,6 +27,30 @@ public class PomModel {
         this.elements = elements;
     }
 
+    @JacksonXmlProperty(isAttribute = true)
+    private String schemaLocation;
+
+    @JacksonXmlProperty(localName = "version")
+    private String version;
+
+    // Resto del código de la clase
+
+    public String getSchemaLocation() {
+        return schemaLocation;
+    }
+
+    public void setSchemaLocation(String schemaLocation) {
+        this.schemaLocation = schemaLocation;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
 //    @JacksonXmlProperty(localName = "version")
 //    public String version;
 //
