@@ -1,5 +1,6 @@
 package com.shared.library.utils
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
@@ -19,16 +20,18 @@ class FileExtractorUtils {
      * @return version
      */
     def readVersionFromPomFile(String pomContent){
-//        XmlMapper xmlMapper = new XmlMapper()
-//        PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
-//        def versionName = pom.getElements().get("version").toString().replace("\"", "")
-//        return versionName
-        def pattern = /<project[^>]*>.*?<version>(.*?)<\/version>.*?<\/project>/s
-        def matcher = (pomContent =~ pattern)
-        if (matcher.find())
-            return matcher.group(1)
-        else
-            return null
+//        def pattern = /<project[^>]*>\s*<version>([^<]*)<\/version>/
+//        def matcher = (pomContent =~ pattern)
+//        if (matcher.find()){
+//            def version = matcher.group(1)
+//            return matcher.group(1)
+//        }
+//        else
+//            return null
+        XmlMapper xmlMapper = new XmlMapper()
+        JsonNode jsonNode = xmlMapper.readTree(pomContent)
+        Map<String, Object> map = xmlMapper.convertValue(jsonNode, Map)
+        return map.get("version")
     }
 
     /**
