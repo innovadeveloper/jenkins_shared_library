@@ -23,9 +23,9 @@ class FileExtractorUtils {
         try{
             XmlMapper xmlMapper = new XmlMapper()
             PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
-            def objectMapper = new ObjectMapper()
-            def jsonString = objectMapper.writeValueAsString(pom)
-            response = jsonString
+//            def objectMapper = new ObjectMapper()
+//            def jsonString = objectMapper.writeValueAsString(pom)
+            response = pom
         }catch (Exception e){
             response = e
         }
