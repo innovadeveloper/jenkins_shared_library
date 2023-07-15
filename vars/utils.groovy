@@ -12,7 +12,6 @@ String getVersionFromPackageJSON(String path){
 
 String getVersionFromPom(String path){
     def fileContent = readFile(file: path)
-    echo fileContent
     def versionFromPackageJson = new FileExtractorUtils().readVersionFromPomFile(fileContent)
     return versionFromPackageJson
 }
