@@ -15,3 +15,9 @@ String getVersionFromPom(String path){
     def versionFromPackageJson = new FileExtractorUtils().readVersionFromPomFile(fileContent)
     return versionFromPackageJson
 }
+
+String getTemplateFromFile(String path){
+    def fileContent = readFile(file: path)
+    def versionFromPackageJson = new FileExtractorUtils().readVersionFromPomFile(fileContent)
+    return versionFromPackageJson
+}

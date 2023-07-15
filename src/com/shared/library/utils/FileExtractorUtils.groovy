@@ -70,5 +70,15 @@ class FileExtractorUtils {
         }
     }
 
+    /**
+     * retorna una de las propiedades de app name.
+     * @param yamlContent String
+     * @return app name
+     */
+    def readJenkinsPropertyFromTemplate(String yamlContent){
+        def objectMapper = new ObjectMapper(new YAMLFactory())
+        JenkinsProperty jenkinsProperty = objectMapper.readValue(yamlContent, JenkinsProperty)
+        return jenkinsProperty.project.project_info.app_name
+    }
 }
 
