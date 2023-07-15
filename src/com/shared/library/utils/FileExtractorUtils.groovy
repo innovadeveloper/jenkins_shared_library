@@ -19,16 +19,10 @@ class FileExtractorUtils {
      * @return version
      */
     def readVersionFromPomFile(String pomContent){
-        def response = null
-        try{
-            XmlMapper xmlMapper = new XmlMapper()
-            PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
-            response = pom
-        }catch (Exception e){
-            response = e
-            response = e.getMessage()
-        }
-        return response
+        XmlMapper xmlMapper = new XmlMapper()
+        PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
+        def versionName = pom.getElements().get("version").toString().replace("\"", "")
+        return versionName
     }
 
     /**
