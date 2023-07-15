@@ -9,7 +9,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PomModel {
     @JacksonXmlProperty(localName = "version")
-    private String version;
+    public String version;
 
     public String getVersion() {
         return version;
