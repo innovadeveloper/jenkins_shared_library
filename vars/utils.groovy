@@ -12,9 +12,6 @@ String getVersionFromPackageJSON(String path){
 
 String getVersionFromPom(String path){
     def fileContent = readFile(file: path)
-    echo "[start]\n$fileContent\n[end]"
-    def objectType = fileContent.getClass().getSimpleName()
-    echo "Type $objectType"
     def versionFromPackageJson = new FileExtractorUtils().readVersionFromPomFile(fileContent)
     return versionFromPackageJson
 }
