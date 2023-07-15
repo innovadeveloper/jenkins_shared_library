@@ -28,6 +28,7 @@ class FileExtractorUtils {
             response = pom
         }catch (Exception e){
             response = e
+            response = e.getMessage()
         }
         return response
     }
