@@ -23,7 +23,7 @@ class FileExtractorUtils {
         PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
         println("holaaaaaaa")
         println(pom)
-        return pom.getVersion()
+        return pom
     }
 
     /**
