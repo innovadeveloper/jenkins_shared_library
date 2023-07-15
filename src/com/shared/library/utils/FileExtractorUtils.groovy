@@ -20,14 +20,6 @@ class FileExtractorUtils {
      * @return version
      */
     def readVersionFromPomFile(String pomContent){
-//        def pattern = /<project[^>]*>\s*<version>([^<]*)<\/version>/
-//        def matcher = (pomContent =~ pattern)
-//        if (matcher.find()){
-//            def version = matcher.group(1)
-//            return matcher.group(1)
-//        }
-//        else
-//            return null
         XmlMapper xmlMapper = new XmlMapper()
         JsonNode jsonNode = xmlMapper.readTree(pomContent)
         Map<String, Object> map = xmlMapper.convertValue(jsonNode, Map)
