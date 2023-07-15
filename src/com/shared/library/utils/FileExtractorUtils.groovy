@@ -21,6 +21,8 @@ class FileExtractorUtils {
     def readVersionFromPomFile(String pomContent){
         XmlMapper xmlMapper = new XmlMapper()
         PomModel pom = xmlMapper.readValue(pomContent, PomModel.class)
+        println("holaaaaaaa")
+        println(pom)
         return pom.getVersion()
     }
 
