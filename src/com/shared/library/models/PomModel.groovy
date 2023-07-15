@@ -18,10 +18,4 @@ public class PomModel {
     public void setVersion(String version) {
         this.version = version;
     }
-
-    String toString(){
-        def objectMapper = new ObjectMapper()
-        def jsonString = objectMapper.writeValueAsString(this)
-        return jsonString
-    }
 }
