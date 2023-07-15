@@ -18,6 +18,6 @@ String getVersionFromPom(String path){
 
 String getTemplateFromFile(String path){
     def fileContent = readFile(file: path)
-    def versionFromPackageJson = new FileExtractorUtils().readJenkinsPropertyFromTemplate(fileContent)
-    return versionFromPackageJson
+    def dataFromTemplate = new FileExtractorUtils().readJenkinsPropertyFromTemplate(fileContent)
+    return dataFromTemplate
 }
